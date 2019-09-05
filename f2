@@ -1,0 +1,27 @@
+#include "global.th" //This includes a C header file
+ 
+unsigned char counter1; //This is a global variable
+//Variables must be defined or declared before use
+ 
+#define MAX_COUNTER 5 //There is no const statement in C, so use preprocessor
+ 
+unsigned char increment(unsigned char x); //This is a declaration
+//Procedures (subs and functions) must be defined or declared before use
+//===============================================================================
+ 
+void on_sys_init(){ //event handler for the ON_SYS_INIT event
+  counter1=0;
+}
+ 
+ 
+void on_sys_timer(){ //event handler for the ON_SYS_TIMER event
+  counter1=increment(counter1);
+  if(counter1>=MAX_COUNTER){
+     counter1=0;
+     pat.play("R-R-R",PL_PAT_CANINT); //invoke method .play of the pat. object
+  }
+}
+ 
+unsigned char increment(unsigned char x){
+  return x+1;
+}
